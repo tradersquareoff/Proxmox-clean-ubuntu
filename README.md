@@ -96,11 +96,15 @@ This tutorial provides a basic framework for setting up an Ubuntu 22.04 server. 
 ## Install multiple instances of GO with GVM
 
 ```bash
-sudo apt install bsdmainutils
+sudo apt install bsdmainutils -y
 ```
 
 ```bash
-apt-get install bison
+apt-get install bison -y
+```
+
+```bash
+apt-get install nano -y
 ```
 
 ```bash
@@ -111,10 +115,8 @@ bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/bins
 source /root/.gvm/scripts/gvm
 ```
 
-```bash
-apt-get install nano -y
-```
 
+(optionnel)
 ```bash
 nano ~/.bashrc
 ```
@@ -137,20 +139,14 @@ go version
 ```bash
 git clone https://github.com/QuilibriumNetwork/ceremonyclient.git
 cd ceremonyclient/node
-```
-
-```bash
 GOEXPERIMENT=arenas go install ./...
-```
-
-```bash
 ls /root/.gvm/pkgsets/go1.20.14/global/bin
 ```
 
 ```bash
 GOEXPERIMENT=arenas go run ./...
 ```
-
+open a new bash
 ```bash
 ps aux
 ```
