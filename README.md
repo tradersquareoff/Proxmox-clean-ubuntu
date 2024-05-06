@@ -92,3 +92,72 @@ sudo systemctl enable qemu-guest-agent
 ```
 
 This tutorial provides a basic framework for setting up an Ubuntu 22.04 server. Remember to secure your server according to your organizational security policies and requirements.
+
+Install multiple instances of GO with GVM
+```bash
+bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+```
+```bash
+sudo apt install bsdmainutils
+```
+```bash
+gvm install go1.4 -B
+gvm use go1.4
+export GOROOT_BOOTSTRAP=$GOROOT
+gvm install go1.17.13
+gvm use go1.17.13
+export GOROOT_BOOTSTRAP=$GOROOT
+gvm install go1.20.14
+gvm use go1.20.14
+```
+
+```bash
+go version
+```
+
+```bash
+git clone https://github.com/QuilibriumNetwork/ceremonyclient.git
+cd ceremonyclient/node
+```
+```bash
+ls /.gvm/pkgsets/go1.20.14/global/bin
+```
+```bash
+GOEXPERIMENT=arenas go run ./...
+```
+```bash
+ps aux
+```
+```bash
+kill -9 PUID
+```
+
+```bash
+nano /lib/systemd/system/ceremonyclient.service
+```
+```bash
+[Unit]
+Description=Ceremony Client Go App Service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5s
+WorkingDirectory=/root/ceremonyclient/node
+Environment=GOEXPERIMENT=arenas
+ExecStart=/.gvm/pkgsets/go1.20.14/global/bin/node ./...
+
+[Install]
+WantedBy=multi-user.target
+```
+```bash
+nano .config/config.yml
+```
+  `listenGrpcMultiaddr: /ip4/127.0.0.1/tcp/8337`
+and under 
+  engine:
+    `statsMultiaddr: "/dns/stats.quilibrium.com/tcp/443"`
+```bash
+systemctl ceremonycleint start
+``` 
+
