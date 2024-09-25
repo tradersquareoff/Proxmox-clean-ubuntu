@@ -90,6 +90,18 @@ sudo apt-get install qemu-guest-agent
 sudo systemctl start qemu-guest-agent
 sudo systemctl enable qemu-guest-agent
 ```
+## 8. Install zram, and activate it (50 % of RAM as compressed RAM), check with swapon or zramctl
+
+```bash
+apt-get -uy install zram-config nohang; service zram-config start
+# alternatively go with debian-system-zram (also works on Ubuntu)
+# also read:
+# https://docs.kernel.org/admin-guide/blockdev/zram.html
+# https://unix.stackexchange.com/questions/594817/why-does-zram-occupy-much-more-memory-compared-to-its-compressed-value
+# https://lore.kernel.org/lkml/20160606194836.3624-2-hannes@cmpxchg.org/
+# https://unix.stackexchange.com/questions/32333/what-does-the-vm-swappiness-parameter-really-control
+```
+
 
 This tutorial provides a basic framework for setting up an Ubuntu 22.04 server. Remember to secure your server according to your organizational security policies and requirements.
 
