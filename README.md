@@ -102,6 +102,12 @@ apt-get -uy install zram-config nohang; service zram-config start
 # https://unix.stackexchange.com/questions/32333/what-does-the-vm-swappiness-parameter-really-control
 ```
 
+## 9. Remove Ubuntu Spyware
+
+```bash
+apt-get -uy --purge remove whoopsie kerneloops modemmanager apport apport-symptoms unattended-upgrades gnome-online-accounts switcheroo-control
+apt-get -uy --purge remove update-notifier-common apport ipp-usb ubuntu-release-upgrader-gtk update-notifier
+```
 
 This tutorial provides a basic framework for setting up an Ubuntu 22.04 server. Remember to secure your server according to your organizational security policies and requirements.
 
