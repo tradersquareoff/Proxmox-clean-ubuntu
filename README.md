@@ -91,7 +91,10 @@ sudo systemctl start qemu-guest-agent
 sudo systemctl enable qemu-guest-agent
 ```
 ## 8. Install zram, and activate it (50 % of RAM as compressed RAM), check with swapon or zramctl
-
+The disksize you set during zram device creation is basically a virtual disk size, this does not stand for the real RAM usage.
+You have to predict the actual RAM usage (compression ratio) for your scenario, or make sure that you never create a zram disk size that is too large. Your current RAM size + 50% should be nearly always fine in practice.
+The default configuration of the Linux kernel is unfortunately totally unsuited for zram compression, even when setting vm.swappiness to 100. You need to make your own custom kernel to actually make real use of this handy feature, since Linux purges way too many file caches instead of freeing up memory by swapping the most compressible data much earlier. Ironically, a helpful patch to fix this situation was never accepted.
+Using the zram limit echo 1G > /sys/block/zram0/mem_limit will lock up your system once the compressed data reached that threshold. You are better off to limit zram usage with a well-predicted zram disksize, as it seems there is no other alternative for a limit.
 ```bash
 apt-get -uy install zram-config nohang; service zram-config start
 # alternatively go with debian-system-zram (also works on Ubuntu)
