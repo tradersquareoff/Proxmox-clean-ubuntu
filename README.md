@@ -117,15 +117,7 @@ This tutorial provides a basic framework for setting up an Ubuntu 22.04 server. 
 ## Install multiple instances of GO with GVM
 
 ```bash
-sudo apt install bsdmainutils -y
-```
-
-```bash
-apt-get install bison -y
-```
-
-```bash
-apt-get install nano -y
+sudo apt install bsdmainutils bison nano -y
 ```
 
 ```bash
@@ -135,7 +127,6 @@ bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/bins
 ```bash
 source /root/.gvm/scripts/gvm
 ```
-
 
 (optionnel)
 ```bash
@@ -157,40 +148,12 @@ gvm use go1.20.14
 go version
 ```
 
-```bash
-git clone https://github.com/QuilibriumNetwork/ceremonyclient.git
-cd ceremonyclient/node
-GOEXPERIMENT=arenas go install ./...
-ls /root/.gvm/pkgsets/go1.20.14/global/bin
-```
-
-```bash
-GOEXPERIMENT=arenas go run ./...
-```
-open a new bash
-```bash
-ps aux
-```
-
-```bash
-kill -9 PUID
-```
-
-```bash
-nano .config/config.yml
-```
-  `listenGrpcMultiaddr: /ip4/127.0.0.1/tcp/8337`
-and under 
-  engine:
-    `statsMultiaddr: "/dns/stats.quilibrium.com/tcp/443"`
-
-```bash
-cd
-cd ceremonyclient/node
-./poor_mans_cd.sh
-```
 
 ## Install Docker
+```bash
+bash <(curl -s https://raw.githubusercontent.com/tradersquareoff/Proxmox-clean-ubuntu/master/install_docker_ubuntu.sh)
+```
+Alternatively:
 
 1. **Add Docker's official GPG key:**
 
@@ -217,3 +180,9 @@ cd ceremonyclient/node
    ```bash
    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
    ```
+
+## Install Nvidia Container Toolkit:
+```bash
+bash <(curl -s https://raw.githubusercontent.com/tradersquareoff/Proxmox-clean-ubuntu/master/install_nvidia_container_toolkit.sh)
+```
+
